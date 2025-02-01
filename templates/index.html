@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Student Management System</title>
+</head>
+<body>
+
+<header>
+    <h1>Student Management System</h1>
+</header>
+
+<div class="container">
+    <!-- Student List Table -->
+    <h3>Student List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Grades</th>
+                <th>Average</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.grades }}</td>
+                <td>
+                    {% set avg = student.get_average() %}
+                    {{ avg | round(2) }} <!-- Display average rounded to 2 decimal places -->
+                </td>
+                <td>
+                    <a href="{{ url_for('edit_student', id=student.id) }}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="{{ url_for('delete_student', id=student.id) }}">
+                        <button class="delete">Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+</div>
+ <!-- Add Student Form -->
+ <form action="/add" method="POST">
+    <h3>Add New Student</h3>
+    <input type="text" name="name" placeholder="Enter Name" required>
+    <input type="text" name="student_id" placeholder="Enter Student ID" required>
+    <input type="text" name="grades" placeholder="Enter Grades" required>
+    <button type="submit">Add Student</button>
+</form>
+
+</body>
+</html>

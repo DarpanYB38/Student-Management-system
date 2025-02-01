@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Edit Student</title>
+</head>
+<body>
+
+<header>
+    <h1>Edit Student Details</h1>
+</header>
+
+<div class="container">
+
+    <!-- Edit Student Form -->
+    <form action="/edit/{{ student.id }}" method="POST">
+        <h3>Edit Details for {{ student.name }}</h3>
+        <input type="text" name="name" value="{{ student.name }}" required>
+        <input type="text" name="student_id" value="{{ student.student_id }}" required>
+        <input type="text" name="grades" value="{{ student.grades }}" required>
+        <button type="submit">Update Student</button>
+    </form>
+
+</div>
+
+</body>
+</html>
